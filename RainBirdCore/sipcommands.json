@@ -1,0 +1,127 @@
+{
+  "ControllerCommands": {
+    "ModelAndVersionRequest": {
+      "command": "02",
+      "response": "82",
+      "length": 1
+    },
+    "AvailableStationsRequest": {
+      "command": "03",
+      "parameter": [ 0 ],
+      "response": "83",
+      "length": 2
+    },
+    "CommandSupportRequest": {
+      "command": "04",
+      "commandToTest": "02",
+      "response": "84",
+      "length": 2
+    },
+    "SerialNumberRequest": {
+      "command": "05",
+      "response": "85",
+      "length": 1
+    },
+    "CurrentTimeRequest": {
+      "command": "10",
+      "response": "90",
+      "length": 1
+    },
+    "CurrentDateRequest": {
+      "command": "12",
+      "response": "92",
+      "length": 1
+    },
+    "WaterBudgetRequest": {
+      "command": "30",
+      "parameter": [ 0 ],
+      "response": "B0",
+      "length": 2
+    },
+    "ZonesSeasonalAdjustFactorRequest": {
+      "command": "32",
+      "parameter": [ 0 ],
+      "response": "B2",
+      "length": 2
+    },
+    "CurrentRainSensorStateRequest": {
+      "command": "3E",
+      "response": "BE",
+      "length": 1
+    },
+    "CurrentStationsActiveRequest": {
+      "command": "3F",
+      "parameter": [ 0 ],
+      "response": "BF",
+      "length": 2
+    },
+    "ManuallyRunProgramRequest": {
+      "command": "38",
+      "parameter": [ 0 ],
+      "response": "01",
+      "length": 2
+    },
+    "ManuallyRunStationRequest": {
+      "command": "39",
+      "parameter": [ 0, 0 ],
+      "response": "01",
+      "length": 4
+    },
+    "TestStationsRequest": {
+      "command": "3A",
+      "parameter": [ 0 ],
+      "response": "01",
+      "length": 2
+    },
+    "StopIrrigationRequest": {
+      "command": "40",
+      "response": "01",
+      "length": 1
+    },
+    "RainDelayGetRequest": {
+      "command": "36",
+      "response": "B6",
+      "length": 1
+    },
+    "RainDelaySetRequest": {
+      "command": "37",
+      "parameter": [ 0 ],
+      "response": "01",
+      "length": 3
+    },
+    "AdvanceStationRequest": {
+      "command": "42",
+      "parameter": [ 0 ],
+      "response": "01",
+      "length": 2
+    },
+    "CurrentIrrigationStateRequest": {
+      "command": "48",
+      "response": "C8",
+      "length": 1
+    },
+    "CurrentControllerStateSet": {
+      "command": "49",
+      "parameter": [ 0 ],
+      "response": "01",
+      "length": 2
+    },
+    "ControllerEventTimestampRequest": {
+      "command": "4A",
+      "parameter": [ 0 ],
+      "response": "CA",
+      "length": 2
+    },
+    "StackManuallyRunStationRequest": {
+      "command": "4B",
+      "parameter": [ 0, 0, 0 ],
+      "response": "01",
+      "length": 4
+    },
+    "CombinedControllerStateRequest": {
+      "command": "4C",
+      "response": "CC",
+      "length": 1
+    }
+  }
+}

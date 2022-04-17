@@ -1,0 +1,69 @@
+using System.Collections.Generic;
+using RainBirdCore;
+using Xunit;
+
+namespace XUnitTest
+{
+    public class AesEncryptionTest
+    {
+        private string _password = "####PASS#####";
+
+        [Theory]
+        [InlineData("abc:123")]
+        [InlineData("123456abcdABCD")]
+        public void AesEnDecodeTest(string testPacket)
+        {
+            var encryptorPacket = AesEncryption.Encryptor(testPacket, _password);
+            var decryptorString = AesEncryption.Decryptor(encryptorPacket, _password);
+
+            Assert.Equal(testPacket, decryptorString);
+        }
+        [Fact]
+        public void EncryptTest()
+        {
+            var testString = GetFakeJsonString();
+            var exceptPacket = GetFakePacket();
+            //正常aesIv是隨機碼，這裡測試指定跟封包一樣的
+            byte[] aesIv = new byte[16];
+            exceptPacket.CopyTo(32, aesIv, 0, 16);
+
+            var actuallyPacket = AesEncryption.Encryptor(testString, _password, aesIv);
+
+            Assert.Equal(string.Join('-', exceptPacket), string.Join('-', actuallyPacket));
+        }
+        [Fact]
+        public void DecryptTest()
+        {
+            var testPacket = GetFakePacket().ToArray();
+            var exceptString = GetFakeJsonString();
+
+            var actuallyString = AesEncryption.Decryptor(testPacket, _password);
+
+            Assert.Equal(exceptString, actuallyString);
+        }
+
+        public static string GetFakeJsonString() =>
+            "{\"id\":1588036947,\"jsonrpc\":\"2.0\",\"method\":\"tunnelSip\",\"params\":{\"data\":\"39000405\",\"length\":4}}";
+
+        //{"id":1588036947,"jsonrpc":"2.0","method":"tunnelSip","params":{"data":"39000405","length":4}}
+        public List<byte> GetFakePacket() => new List<byte>(){
+            0x67, 0x32, 0xa0, 0xbd, 0x27, 0xb2, 0xa4, 0xa2,
+            0x77, 0xab, 0x5c, 0xb5, 0x9f, 0xad, 0x22, 0x00,
+            0x62, 0x06, 0x53, 0xb2, 0xeb, 0x27, 0x81, 0x43,
+            0xd4, 0xd8, 0xfc, 0xfc, 0x18, 0x74, 0xe8, 0x3f,
+            0x32, 0xea, 0x4a, 0x5a, 0x6c, 0x4c, 0x42, 0xda,
+            0x55, 0x31, 0xa8, 0xe4, 0xc5, 0x9f, 0x04, 0x2d,
+            0xb9, 0x46, 0xf4, 0x21, 0x85, 0xa1, 0x99, 0x0e,
+            0x20, 0xa7, 0x9a, 0x89, 0x3e, 0x6e, 0x5e, 0x45,
+            0x90, 0xa1, 0x65, 0xab, 0x98, 0x4a, 0x8a, 0x14,
+            0xb5, 0x68, 0x51, 0x72, 0x67, 0xcb, 0x0a, 0x45,
+            0x4b, 0x82, 0xfd, 0x19, 0xb1, 0xcf, 0x61, 0xaa,
+            0x12, 0xaf, 0x08, 0xf7, 0xcc, 0x86, 0x89, 0xa0,
+            0xe5, 0x16, 0x77, 0xec, 0xba, 0x71, 0x53, 0xe2,
+            0xc3, 0xeb, 0xc7, 0x5e, 0x6e, 0x46, 0xf7, 0x59,
+            0x5a, 0x12, 0x2d, 0x14, 0xea, 0x18, 0x7f, 0x67,
+            0xb9, 0xa4, 0x07, 0xf4, 0x09, 0x86, 0x66, 0x66,
+            0xf4, 0x46, 0x60, 0xda, 0x23, 0xf6, 0xd8, 0x69,
+            0x5d, 0xc8, 0xa8, 0xb8, 0x7e, 0x15, 0x6f, 0x78};
+    }
+}
